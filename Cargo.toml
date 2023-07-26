@@ -1,0 +1,39 @@
+[package]
+name = "sentencepiece-model"
+description = "Sentencepiece model parser"
+version = "0.0.0"
+authors = ["Christian Sdunek <me@systemcluster.me>"]
+keywords = ["sentencepiece", "tokenizer", "nlp", "machine-learning", "no_std"]
+categories = ["text-processing", "algorithms"]
+license = "BSD-2-Clause"
+repository = "https://github.com/Systemcluster/sentencepiece-model"
+readme = "README.md"
+edition = "2021"
+resolver = "2"
+include = [
+    "Cargo.toml",
+    "src/**/*",
+    "build.rs",
+    "LICENCE",
+]
+build = "build.rs"
+
+[lib]
+name = "sentencepiece_model"
+path = "src/lib.rs"
+
+[features]
+default = ["std"]
+std = ["prost/std"]
+
+[dependencies]
+prost = { version = "0.12.2", default-features = false, features = ["prost-derive"] }
+
+[build-dependencies]
+prost-build = { version = "0.12.2" }
+protoc-bin-vendored = { version = "3.0.0" }
+which = { version = "5.0.0" }
+
+[package.metadata.docs.rs]
+rustdoc-args = ["--cfg", "docsrs"]
+all-features = true
