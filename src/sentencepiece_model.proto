@@ -231,6 +231,10 @@ message TrainerSpec {
   // is increased memory usage.
   optional bool train_extremely_large_corpus = 49 [default = false];
 
+  // Path to a seed sentencepieces file, with one tab-separated
+  // seed sentencepiece <tab> frequency per line.
+  optional string seed_sentencepieces_file = 54 [default = ""];
+
   // Customized extensions: the range of field numbers
   // are open to third-party extensions.
   extensions 200 to max;
