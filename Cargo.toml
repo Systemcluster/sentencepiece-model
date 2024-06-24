@@ -27,12 +27,12 @@ default = ["std"]
 std = ["prost/std"]
 
 [dependencies]
-prost = { version = "0.12.2", default-features = false, features = ["prost-derive"] }
+prost = { version = "0.12.6", default-features = false, features = ["prost-derive"] }
 
 [build-dependencies]
-prost-build = { version = "0.12.2" }
-protoc-bin-vendored = { version = "3.0.0" }
-which = { version = "5.0.0" }
+prost-build = { version = "0.12.6" }
+protoc-prebuilt = { version = "0.3.0" }
+which = { version = "6.0.1" }
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]

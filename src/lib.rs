@@ -9,8 +9,6 @@ extern crate alloc;
 
 use core::ops::Deref;
 
-use prost::Message;
-
 mod proto {
     include!(concat!(env!("OUT_DIR"), "/sentencepiece.rs"));
 }
@@ -22,11 +20,13 @@ pub use proto::{ModelProto, NormalizerSpec, TrainerSpec};
 
 /// SentencePiece model.
 /// Provides access to the underlying `sentencepiece` model.
+#[derive(Clone, PartialEq, Debug)]
 pub struct SentencePieceModel {
     model: ModelProto,
 }
 impl SentencePieceModel {
     pub fn from_slice(bytes: impl AsRef<[u8]>) -> Result<Self, prost::DecodeError> {
+        use prost::Message;
         let model = ModelProto::decode(bytes.as_ref())?;
         Ok(Self { model })
     }
