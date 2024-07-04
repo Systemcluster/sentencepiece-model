@@ -12,3 +12,13 @@ let model = SentencePieceModel::from_file("tests/t5-spiece.model")?;
 assert_eq!(model.pieces.len(), 32000);
 assert_eq!(model.trainer()?.unk_id(), 2);
 ```
+
+## Usage
+
+```toml
+[dependencies]
+sentencepiece-model = "0.1"
+```
+
+`sentencepiece-model` uses `prost-build` and `protoc` to generate Rust code from the SentencePiece protobuf definition.
+If an existing `protoc` binary is not found in the path, the build script will download it from the [protobuf releases](https://github.com/protocolbuffers/protobuf/releases) during the first build.
