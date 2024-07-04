@@ -18,6 +18,9 @@ pub use proto::model_proto::SentencePiece;
 pub use proto::trainer_spec::ModelType;
 pub use proto::{ModelProto, NormalizerSpec, TrainerSpec};
 
+use prost::bytes::Buf;
+use prost::Message;
+
 /// SentencePiece model.
 /// Provides access to the underlying `sentencepiece` model.
 #[derive(Clone, PartialEq, Debug)]
@@ -26,8 +29,12 @@ pub struct SentencePieceModel {
 }
 impl SentencePieceModel {
     pub fn from_slice(bytes: impl AsRef<[u8]>) -> Result<Self, prost::DecodeError> {
-        use prost::Message;
         let model = ModelProto::decode(bytes.as_ref())?;
+        Ok(Self { model })
+    }
+
+    pub fn from_reader<R: Buf>(reader: &mut R) -> Result<Self, prost::DecodeError> {
+        let model = ModelProto::decode(reader)?;
         Ok(Self { model })
     }
 
