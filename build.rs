@@ -136,6 +136,13 @@ fn download_protoc(version: &str, force: bool) -> Result<(PathBuf, PathBuf), Box
     if !protoc.is_file() {
         return Err(format!("failed to find extracted protoc binary in {:?}", extract_path).into());
     }
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        let mut perms = protoc.metadata()?.permissions();
+        perms.set_mode(0o755);
+        fs::set_permissions(&protoc, perms)?;
+    }
     check_protoc_version(&protoc)?;
 
     Ok((protoc, include))
