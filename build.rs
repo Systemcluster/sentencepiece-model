@@ -87,6 +87,10 @@ fn download_protoc(version: &str, force: bool) -> Result<(PathBuf, PathBuf), Box
     }
 
     let download_file = if !download_path.is_file() || force {
+        if download_path.is_file() {
+            eprintln!("removing existing protoc download at {:?}", download_path);
+            fs::remove_file(&download_path)?;
+        }
         let mut download_file = File::options()
             .create(true)
             .truncate(true)
@@ -121,7 +125,12 @@ fn download_protoc(version: &str, force: bool) -> Result<(PathBuf, PathBuf), Box
     };
 
     let mut archive = ZipArchive::new(download_file)?;
+    if extract_path.is_dir() {
+        eprintln!("removing existing extract directory {:?}", extract_path);
+        fs::remove_dir_all(&extract_path)?;
+    }
     fs::create_dir_all(&extract_path)?;
+    eprintln!("extracting protoc to {:?}", extract_path);
     archive.extract(&extract_path)?;
 
     if !protoc.is_file() {
