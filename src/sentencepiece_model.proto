@@ -43,7 +43,7 @@ message TrainerSpec {
   // `<model_prefix>.model` and `<model_prefix>.vocab` are generated.
   optional string model_prefix = 2;
 
-  // Model type. Only `UNIGRAM` now.
+  // Model type.
   enum ModelType {
     UNIGRAM = 1;  // Unigram language model with dynamic algorithm
     BPE = 2;      // Byte Pair Encoding
@@ -232,7 +232,7 @@ message TrainerSpec {
   optional bool train_extremely_large_corpus = 49 [default = false];
 
   // Path to a seed sentencepieces file, with one tab-separated
-  // seed sentencepiece <tab> frequency per line.
+  // seed sentencepiece `<tab>` frequency per line.
   optional string seed_sentencepieces_file = 54 [default = ""];
 
   // Customized extensions: the range of field numbers
@@ -274,6 +274,7 @@ message NormalizerSpec {
 
 // Proto to store samples for self-testing.
 message SelfTestData {
+  // Self-test data sample.
   message Sample {
     optional string input = 1;
     optional string expected = 2;
