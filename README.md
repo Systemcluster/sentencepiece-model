@@ -20,5 +20,4 @@ assert_eq!(model.trainer()?.unk_id(), 2);
 sentencepiece-model = "0.1"
 ```
 
-`sentencepiece-model` uses `prost-build` and `protoc` to generate Rust code from the SentencePiece protobuf definition.
-If an existing `protoc` binary is not found in the path, the build script will download it from the [protobuf releases](https://github.com/protocolbuffers/protobuf/releases) during the first build.
+`sentencepiece-model` uses `prost-build` and `protox` to generate Rust code from the SentencePiece protobuf definition at build time. `protoc` is not required.
